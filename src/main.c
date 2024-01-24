@@ -6,7 +6,7 @@
 /*   By: tali <tali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:47 by tali              #+#    #+#             */
-/*   Updated: 2024/01/24 20:09:21 by tali             ###   ########.fr       */
+/*   Updated: 2024/01/24 22:05:57 by tali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_char_to_hex(uint8_t nb, uint8_t **s, int i)
 
 uint8_t	*ft_str_to_hex(uint8_t *s, uint64_t len)
 {
-	uint8_t		*ret = ft_calloc(len, sizeof(uint8_t));
+	uint8_t		*ret = ft_calloc(len + 1, sizeof(uint8_t));
 	uint32_t	i = 0;
 
 	while (i < len / 2)
@@ -91,17 +91,20 @@ int	main(int ac, char **av)
 		int64_t	len = ft_strlen(av[1]);
 		while (1)
 		{
+			uint8_t	*temp;
 			char *s = get_next_line(fd);
 			s = ft_rmnewline(s);
 			if (!s && j == 1)
 			{
 				printf("not found in this dico\nNumber of attempt : %ld\n", i);
+				free(s);
+				if (temp)
+					free(temp);
 				close(fd);
 				exit(0);
 			}
 			else
 			{
-				uint8_t	*temp;
 				if (!s)
 					j++;
 				if (len == 32)
@@ -145,6 +148,7 @@ int	main(int ac, char **av)
 				{
 					printf("\nFOUND !\n%s\nThis is the value before hash\nNumber of attempt : %ld\n", s, i);
 					free(s);
+					free(temp);
 					close(fd);
 					exit(0);
 				}
