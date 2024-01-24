@@ -137,6 +137,8 @@ int	main(int ac, char **av)
 				else
 				{
 					printf("format not reconized are you sure it's in MD5 - SHA1 - SHA224 - SHA256 - SHA512 ?\n");
+					free(s);
+					close(fd);
 					exit(0);
 				}
 				if (ft_strncmp((char *)temp, av[1], len) == 0)
@@ -146,7 +148,6 @@ int	main(int ac, char **av)
 					close(fd);
 					exit(0);
 				}
-				printf("temp :%s\n", temp);
 				free(temp);
 			}
 			free(s);
