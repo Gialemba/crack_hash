@@ -6,49 +6,12 @@
 /*   By: tali <tali@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:47 by tali              #+#    #+#             */
-/*   Updated: 2024/01/24 22:05:57 by tali             ###   ########.fr       */
+/*   Updated: 2024/01/25 22:21:25 by tali             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/crack.h"
 
-int	ft_char_to_hex(uint8_t nb, uint8_t **s, int i)
-{
-	char		*base;
-
-
-	base = "0123456789abcdef";
-	if (nb >= 16)
-		ft_char_to_hex(nb / 16, s, i++);
-	uint8_t temp[2] = {base[nb % 16], 0};
-	ft_strlcat((char *)*s, (char *)temp, ft_strlen((char *)*s) + 2);
-	return (i);
-}
-
-uint8_t	*ft_str_to_hex(uint8_t *s, uint64_t len)
-{
-	uint8_t		*ret = ft_calloc(len + 1, sizeof(uint8_t));
-	uint32_t	i = 0;
-
-	while (i < len / 2)
-	{
-		uint8_t	tmp[2] = {'0', 0};
-
-		if (ft_char_to_hex(s[i], &ret, 0) == 0)
-		{
-			uint8_t		t;
-			uint64_t	len = ft_strlen((char *)ret);
-
-			ft_strlcat((char *)ret, (char *)tmp, len + 2);
-			t = ret[len];
-			ret[len] = ret[len - 1];
-			ret[len - 1] = t;
-		}
-		i++;
-	}
-
-	return (ret);
-}
 char	*ft_rmnewline(char *s)
 {
 	char	*ret;
@@ -153,6 +116,7 @@ int	main(int ac, char **av)
 					exit(0);
 				}
 				free(temp);
+				temp = NULL;
 			}
 			free(s);
 			i++;
